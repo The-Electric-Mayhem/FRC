@@ -87,6 +87,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     SmartDashboard.putNumber("Pressure", m_pressureSensor.getVoltage());
+    SmartDashboard.putBoolean(("isPressurized"), isPressurized());
 
     // Drive with arcade drive.
     // That means that the Y axis drives forward
