@@ -37,6 +37,7 @@ public class Robot extends TimedRobot {
   private final Timer m_timer = new Timer(); 
   private final Compressor m_compressor = new Compressor();
   private final DoubleSolenoid m_doubleSolenoid = new DoubleSolenoid(0, 1);
+  private final DoubleSolenoid m_doubleSolenoid2 = new DoubleSolenoid(2, 3);
   private final AnalogInput m_pressureSensor = new AnalogInput(3);
   private static final double kMaxPressure = 2.55;
 
@@ -99,8 +100,10 @@ public class Robot extends TimedRobot {
      */
     if (m_stick.getRawButton(kDoubleSolenoidForward)) {
       m_doubleSolenoid.set(DoubleSolenoid.Value.kForward);
+      m_doubleSolenoid2.set(DoubleSolenoid.Value.kForward);
     } else if (m_stick.getRawButton(kDoubleSolenoidReverse)) {
       m_doubleSolenoid.set(DoubleSolenoid.Value.kReverse);
+      m_doubleSolenoid2.set(DoubleSolenoid.Value.kReverse);
     }
 
     if(m_stick.getRawButton(kColorWheelForward)) {
