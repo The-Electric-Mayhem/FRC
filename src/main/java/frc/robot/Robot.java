@@ -11,9 +11,7 @@ import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.PWM;
 import edu.wpi.first.wpilibj.PWMVictorSPX;
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -107,10 +105,16 @@ public class Robot extends TimedRobot {
       m_doubleSolenoid2.set(DoubleSolenoid.Value.kReverse);
     }
 
+    // if(m_stick.getRawButton(kColorWheelForward)) {
+    //   m_colorWheel.setSpeed(0.2);
+    // } else {
+    //   m_colorWheel.setSpeed(0);
+    // }
+
     if(m_stick.getRawButton(kColorWheelForward)) {
-      m_colorWheel.setSpeed(0.2);
-    } else {
-      m_colorWheel.setSpeed(0);
-    }
+        m_colorWheel.setSpeed(1.0);
+      } else {
+        m_colorWheel.setSpeed(0.0);
+      }
   }
 }
