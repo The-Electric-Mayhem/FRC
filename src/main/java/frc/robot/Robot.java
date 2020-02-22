@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.PWM;
 import edu.wpi.first.wpilibj.PWMVictorSPX;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -28,8 +29,13 @@ public class Robot extends TimedRobot {
   private final PWMVictorSPX m_rightRear = new PWMVictorSPX(3);
 
   private final PWMVictorSPX m_colorWheel = new PWMVictorSPX(4);
+
+  private final PWMVictorSPX m_leftShooterWheel = new PWMVictorSPX(5);
+  private final PWMVictorSPX m_rightShooterWheel = new PWMVictorSPX(6);
+
+
   // private final SpeedControllerGroup leftSpeedControllerGroup = new SpeedControllerGroup(m_leftFrontMotor, m_leftRear);
-  //private final SpeedControllerGroup rightSpeedControllerGroup = new SpeedControllerGroup(m_rightFrontMotor, m_rightRear);
+  // private final SpeedControllerGroup rightSpeedControllerGroup = new SpeedControllerGroup(m_rightFrontMotor, m_rightRear);
   private final DifferentialDrive m_robotDrive = new DifferentialDrive(m_leftFrontMotor, m_rightFrontMotor);
   private final Joystick m_stick = new Joystick(0);
   private final Timer m_timer = new Timer(); 
@@ -105,16 +111,26 @@ public class Robot extends TimedRobot {
       m_doubleSolenoid2.set(DoubleSolenoid.Value.kReverse);
     }
 
-    // if(m_stick.getRawButton(kColorWheelForward)) {
-    //   m_colorWheel.setSpeed(0.2);
-    // } else {
-    //   m_colorWheel.setSpeed(0);
-    // }
 
+    /**
+     * enable color wheel motor while button 6 is pressed
+     */
     if(m_stick.getRawButton(kColorWheelForward)) {
-        m_colorWheel.setSpeed(1.0);
-      } else {
-        m_colorWheel.setSpeed(0.0);
-      }
+      m_colorWheel.setSpeed(0.2);
+    } else {
+      m_colorWheel.setSpeed(0);
+    }
+
+
+    /**
+     * enable shooter wheels while trigger is pressed
+     */
+    if(m_stick.getTriggerPressed()) {
+      m_rightShooterWheel.set(1.0);
+      m_leftShooterWheel.set(1.0);
+    } else {
+      m_rightShooterWheel.set(0.0);
+      m_leftShooterWheel.set(0.0);
+    }
   }
 }
