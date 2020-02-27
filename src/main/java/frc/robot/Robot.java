@@ -123,9 +123,9 @@ public class Robot extends TimedRobot {
 
 
     /**
-     * enable shooter wheels while trigger is pressed
+     * enable shooter wheels while button 6 is pressed
      */
-    if(m_stick.getTriggerPressed()) {
+    if(m_stick.getRawButton(6)) {
       m_rightShooterWheel.set(1.0);
       m_leftShooterWheel.set(1.0);
     } else {
