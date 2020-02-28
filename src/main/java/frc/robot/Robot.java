@@ -22,8 +22,8 @@ import edu.wpi.first.wpilibj.Timer;
  * the motors with arcade steering.
  */
 public class Robot extends TimedRobot {
-  private final PWMVictorSPX m_leftFrontMotor = new PWMVictorSPX(1);
-  private final PWMVictorSPX m_rightFrontMotor = new PWMVictorSPX(2);
+  private final PWMVictorSPX m_leftFrontMotor = new PWMVictorSPX(2);
+  private final PWMVictorSPX m_rightFrontMotor = new PWMVictorSPX(1);
   // private final PWMVictorSPX m_leftRear = new PWMVictorSPX(0);
   // private final PWMVictorSPX m_rightRear = new PWMVictorSPX(3);
 
