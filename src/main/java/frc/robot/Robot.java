@@ -60,6 +60,8 @@ public class Robot extends TimedRobot {
 
   private boolean intakeEngaged;
 
+  private double intakeSpeed = m_stick.getRawAxis(3);
+
   /**
    * Whether or not the system is fully pressurized.
    */
@@ -108,7 +110,9 @@ public class Robot extends TimedRobot {
     // SmartDashboard.putNumber("Pressure", m_pressureSensor.getVoltage());
     // SmartDashboard.putBoolean(("isPressurized"), isPressurized());
 
-    SmartDashboard.putNumber("lever", m_stick.getAxisType(3));
+    intakeSpeed = (intakeSpeed + 1) / 2;
+
+    SmartDashboard.putNumber("a", intakeSpeed);
 
     // Drive with arcade drive.
     // That means that the Y axis drives forward
