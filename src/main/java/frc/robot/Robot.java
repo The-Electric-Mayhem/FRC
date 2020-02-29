@@ -17,10 +17,6 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Timer;
 
-/**
- * This is a demo program showing the use of the DifferentialDrive class. Runs
- * the motors with arcade steering.
- */
 public class Robot extends TimedRobot {
   private final PWMVictorSPX m_leftFrontMotor = new PWMVictorSPX(2);
   private final PWMVictorSPX m_rightFrontMotor = new PWMVictorSPX(1);
@@ -31,8 +27,8 @@ public class Robot extends TimedRobot {
 
   private final PWMVictorSPX m_leftShooterWheel = new PWMVictorSPX(5);
   private final PWMVictorSPX m_rightShooterWheel = new PWMVictorSPX(6);
-  private final PWMVictorSPX m_intakeRight = new PWMVictorSPX(7);
-  private final PWMVictorSPX m_intakeLeft = new PWMVictorSPX(8);
+  private final PWMVictorSPX m_intakeRampRight = new PWMVictorSPX(7);
+  private final PWMVictorSPX m_intakeRampLeft = new PWMVictorSPX(8);
 
 
   // private final SpeedControllerGroup leftSpeedControllerGroup = new SpeedControllerGroup(m_leftFrontMotor, m_leftRear);
@@ -44,22 +40,34 @@ public class Robot extends TimedRobot {
   // private final DoubleSolenoid m_doubleSolenoid = new DoubleSolenoid(0, 1);
   // private final DoubleSolenoid m_doubleSolenoid2 = new DoubleSolenoid(2, 3);
   // private final AnalogInput m_pressureSensor = new AnalogInput(3);
-  // private static final double kMaxPressure = 2.55;
+  private static final double kMaxPressure = 2.55;
 
   // private static final int kDoubleSolenoidForward = 5;
   // private static final int kDoubleSolenoidReverse = 3;
 
-  // spins color wheel
+  /**
+   * Button for color wheel
+   */
   private static final int kColorWheelButton = 5;
 
-  // Enagage/Disengage the intake system
+  /**
+   * button to engage/Disengage the intake system
+   */
   private static final int kIntakeButton = 7;
 
-  // engage shooter system
+  /**
+   * button to engage shooter system
+   */
   private static final int kShooterButton = 1;
 
-  private boolean intakeEngaged;
+  /**
+   * boolean to track intake status
+   */
+  private boolean intakeRampEngaged = false;
 
+  /**
+   * sets speed for the intake ramp from the joystick slider
+   */
   private double intakeSpeed = m_stick.getRawAxis(3);
 
   /**
@@ -102,28 +110,19 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    intakeEngaged = false;
+    // ensures the intake is disengaged
+    intakeRampEngaged = false;
   }
 
   @Override
   public void teleopPeriodic() {
-    // SmartDashboard.putNumber("Pressure", m_pressureSensor.getVoltage());
-    // SmartDashboard.putBoolean(("isPressurized"), isPressurized());
-
+    // calculates the intake speed from the slider axis
     intakeSpeed = (intakeSpeed + 1) / 2;
 
-    SmartDashboard.putNumber("a", intakeSpeed);
+    SmartDashboard.putNumber("Intake Ramp Speed", intakeSpeed);
 
-    // Drive with arcade drive.
-    // That means that the Y axis drives forward
-    // and backward, and the X turns left and right.
     m_robotDrive.arcadeDrive(m_stick.getY(), m_stick.getX());
 
-    /*
-     * In order to set the double solenoid, if just one button
-     * is pressed, set the solenoid to correspond to that button.
-     * If both are pressed, set the solenoid will be set to Forwards.
-     */
     // if (m_stick.getRawButton(kDoubleSolenoidForward)) {
     //   m_doubleSolenoid.set(DoubleSolenoid.Value.kForward);
     //   m_doubleSolenoid2.set(DoubleSolenoid.Value.kForward);
@@ -144,7 +143,7 @@ public class Robot extends TimedRobot {
 
 
     /**
-     * enable shooter wheels while button 1 is pressed
+     * enable shooter wheels while button 1 (trigger) is pressed
      */
     if(m_stick.getRawButton(kShooterButton)) {
       m_rightShooterWheel.set(1.0);
@@ -155,22 +154,22 @@ public class Robot extends TimedRobot {
     }
 
     /**
-     * enable or disable intake system
+     * enable or disable intake ramp
      */
     if(m_stick.getRawButton(kIntakeButton)) {
       // enable shooter
-      intakeEngaged = true;
+      intakeRampEngaged = true;
     } else {
       // disable shooter
-      intakeEngaged = false;
+      intakeRampEngaged = false;
     }
 
-    if(intakeEngaged) {
-      m_intakeLeft.set(1.0);
-      m_intakeRight.set(1.0);
+    if(intakeRampEngaged) {
+      m_intakeRampLeft.set(1.0);
+      m_intakeRampRight.set(1.0);
     } else {
-      m_intakeLeft.set(0.0);
-      m_intakeRight.set(0.0);
+      m_intakeRampLeft.set(0.0);
+      m_intakeRampRight.set(0.0);
     }
   }
 }
