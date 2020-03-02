@@ -7,9 +7,7 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.AnalogInput;
-import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PWMVictorSPX;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -65,11 +63,6 @@ public class Robot extends TimedRobot {
   private boolean intakeRampEngaged = false;
 
   /**
-   * sets speed for the intake ramp from the joystick slider
-   */
-  private double intakeSpeed = m_stick.getRawAxis(3);
-
-  /**
    * Whether or not the system is fully pressurized.
    */
   // public boolean isPressurized() {
@@ -116,6 +109,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     // calculates the intake speed from the slider axis
+    double intakeSpeed = m_stick.getRawAxis(3);
     intakeSpeed = (intakeSpeed + 1) / 2;
 
     SmartDashboard.putNumber("Intake Ramp Speed", intakeSpeed);
@@ -158,13 +152,14 @@ public class Robot extends TimedRobot {
     if(m_stick.getRawButton(kIntakeButton)) {
       // enable shooter
       intakeRampEngaged = true;
-    } else {
-      // disable shooter
+    }
+
+    if(m_stick.getRawButton(8)) {
       intakeRampEngaged = false;
     }
 
     if(intakeRampEngaged) {
-      m_intakeRampLeft.set(1.0);
+      m_intakeRampLeft.set(intakeSpeed);
     } else {
       m_intakeRampLeft.set(0.0);
     }
