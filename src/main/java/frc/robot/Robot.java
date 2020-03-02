@@ -25,9 +25,8 @@ public class Robot extends TimedRobot {
 
   private final PWMVictorSPX m_colorWheel = new PWMVictorSPX(4);
 
-  private final PWMVictorSPX m_leftShooterWheel = new PWMVictorSPX(5);
-  private final PWMVictorSPX m_rightShooterWheel = new PWMVictorSPX(6);
-  private final PWMVictorSPX m_intakeRampRight = new PWMVictorSPX(7);
+  private final PWMVictorSPX m_rightShooterWheel = new PWMVictorSPX(5);
+  private final PWMVictorSPX m_leftShooterWheel = new PWMVictorSPX(6);
   private final PWMVictorSPX m_intakeRampLeft = new PWMVictorSPX(8);
 
 
@@ -40,7 +39,7 @@ public class Robot extends TimedRobot {
   // private final DoubleSolenoid m_doubleSolenoid = new DoubleSolenoid(0, 1);
   // private final DoubleSolenoid m_doubleSolenoid2 = new DoubleSolenoid(2, 3);
   // private final AnalogInput m_pressureSensor = new AnalogInput(3);
-  private static final double kMaxPressure = 2.55;
+  //private static final double kMaxPressure = 2.55;
 
   // private static final int kDoubleSolenoidForward = 5;
   // private static final int kDoubleSolenoidReverse = 3;
@@ -166,10 +165,8 @@ public class Robot extends TimedRobot {
 
     if(intakeRampEngaged) {
       m_intakeRampLeft.set(1.0);
-      m_intakeRampRight.set(1.0);
     } else {
       m_intakeRampLeft.set(0.0);
-      m_intakeRampRight.set(0.0);
     }
   }
 }
