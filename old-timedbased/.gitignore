@@ -157,8 +157,13 @@ gradle-app.setting
 bin/
 imgui.ini
 
-# VSCODE and WPILIB
+# IntelliJ IDEA
+.idea/
+
+# VS Code
 .vscode/
+
+# WPILIB
 .wpilib/
 
 

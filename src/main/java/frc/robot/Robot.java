@@ -7,161 +7,107 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.PWMVictorSPX;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
+/**
+ * The VM is configured to automatically run this class, and to call the functions corresponding to
+ * each mode, as described in the TimedRobot documentation. If you change the name of this class or
+ * the package after creating this project, you must also update the build.gradle file in the
+ * project.
+ */
 public class Robot extends TimedRobot {
-  private final PWMVictorSPX m_leftFrontMotor = new PWMVictorSPX(2);
-  private final PWMVictorSPX m_rightFrontMotor = new PWMVictorSPX(1);
-  // private final PWMVictorSPX m_leftRear = new PWMVictorSPX(0);
-  // private final PWMVictorSPX m_rightRear = new PWMVictorSPX(3);
+  private Command m_autonomousCommand;
 
-  private final PWMVictorSPX m_colorWheel = new PWMVictorSPX(4);
-
-  private final PWMVictorSPX m_rightShooterWheel = new PWMVictorSPX(5);
-  private final PWMVictorSPX m_leftShooterWheel = new PWMVictorSPX(6);
-  private final PWMVictorSPX m_intakeRampLeft = new PWMVictorSPX(8);
-
-
-  // private final SpeedControllerGroup leftSpeedControllerGroup = new SpeedControllerGroup(m_leftFrontMotor, m_leftRear);
-  // private final SpeedControllerGroup rightSpeedControllerGroup = new SpeedControllerGroup(m_rightFrontMotor, m_rightRear);
-  private final DifferentialDrive m_robotDrive = new DifferentialDrive(m_leftFrontMotor, m_rightFrontMotor);
-  private final Joystick m_stick = new Joystick(0);
-  private final Timer m_timer = new Timer(); 
-  // private final Compressor m_compressor = new Compressor();
-  // private final DoubleSolenoid m_doubleSolenoid = new DoubleSolenoid(0, 1);
-  // private final DoubleSolenoid m_doubleSolenoid2 = new DoubleSolenoid(2, 3);
-  // private final AnalogInput m_pressureSensor = new AnalogInput(3);
-  //private static final double kMaxPressure = 2.55;
-
-  // private static final int kDoubleSolenoidForward = 5;
-  // private static final int kDoubleSolenoidReverse = 3;
+  private RobotContainer m_robotContainer;
 
   /**
-   * Button for color wheel
+   * This function is run when the robot is first started up and should be used for any
+   * initialization code.
    */
-  private static final int kColorWheelButton = 5;
-
-  /**
-   * button to engage/Disengage the intake system
-   */
-  private static final int kIntakeButton = 7;
-
-  /**
-   * button to engage shooter system
-   */
-  private static final int kShooterButton = 1;
-
-  /**
-   * boolean to track intake status
-   */
-  private boolean intakeRampEngaged = false;
-
-  /**
-   * Whether or not the system is fully pressurized.
-   */
-  // public boolean isPressurized() {
-  //   if (Robot.isReal()) {
-  //     return kMaxPressure <= m_pressureSensor.getVoltage();
-  //   } else {
-  //     return true; // NOTE: Simulation always has full pressure
-  //   }
-  // }
-
   @Override
   public void robotInit() {
-    // m_compressor.setClosedLoopControl(true);
+    // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
+    // autonomous chooser on the dashboard.
+    m_robotContainer = new RobotContainer();
   }
 
+  /**
+   * This function is called every robot packet, no matter the mode. Use this for items like
+   * diagnostics that you want ran during disabled, autonomous, teleoperated and test.
+   *
+   * <p>This runs after the mode specific periodic functions, but before
+   * LiveWindow and SmartDashboard integrated updating.
+   */
+  @Override
+  public void robotPeriodic() {
+    // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
+    // commands, running already-scheduled commands, removing finished or interrupted commands,
+    // and running subsystem periodic() methods.  This must be called from the robot's periodic
+    // block in order for anything in the Command-based framework to work.
+    CommandScheduler.getInstance().run();
+  }
+
+  /**
+   * This function is called once each time the robot enters Disabled mode.
+   */
+  @Override
+  public void disabledInit() {
+  }
+
+  @Override
+  public void disabledPeriodic() {
+  }
+
+  /**
+   * This autonomous runs the autonomous command selected by your {@link RobotContainer} class.
+   */
   @Override
   public void autonomousInit() {
-    m_timer.reset();
-    m_timer.start();
+    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+
+    // schedule the autonomous command (example)
+    if (m_autonomousCommand != null) {
+      m_autonomousCommand.schedule();
+    }
   }
 
+  /**
+   * This function is called periodically during autonomous.
+   */
   @Override
   public void autonomousPeriodic() {
-    // Drive for 2 seconds
-    if (m_timer.get() < 0.5 ) {
-      m_robotDrive.arcadeDrive(-1.0, 0.0); // drive forwards half speed
-    } else {
-      m_robotDrive.stopMotor(); // stop robot
-
-      if(m_timer.get() < 0.6) {
-        m_robotDrive.arcadeDrive(1.0, 0.0); // drive
-      } else {
-        m_robotDrive.stopMotor();
-      }
-    }
   }
 
   @Override
   public void teleopInit() {
-    // ensures the intake is disengaged
-    intakeRampEngaged = false;
+    // This makes sure that the autonomous stops running when
+    // teleop starts running. If you want the autonomous to
+    // continue until interrupted by another command, remove
+    // this line or comment it out.
+    if (m_autonomousCommand != null) {
+      m_autonomousCommand.cancel();
+    }
+  }
+
+  /**
+   * This function is called periodically during operator control.
+   */
+  @Override
+  public void teleopPeriodic() {
   }
 
   @Override
-  public void teleopPeriodic() {
-    // calculates the intake speed from the slider axis
-    double intakeSpeed = m_stick.getRawAxis(3);
-    intakeSpeed = (intakeSpeed + 1) / 2;
+  public void testInit() {
+    // Cancels all running commands at the start of test mode.
+    CommandScheduler.getInstance().cancelAll();
+  }
 
-    SmartDashboard.putNumber("Intake Ramp Speed", intakeSpeed);
-
-    m_robotDrive.arcadeDrive(m_stick.getY(), m_stick.getX());
-
-    // if (m_stick.getRawButton(kDoubleSolenoidForward)) {
-    //   m_doubleSolenoid.set(DoubleSolenoid.Value.kForward);
-    //   m_doubleSolenoid2.set(DoubleSolenoid.Value.kForward);
-    // } else if (m_stick.getRawButton(kDoubleSolenoidReverse)) {
-    //   m_doubleSolenoid.set(DoubleSolenoid.Value.kReverse);
-    //   m_doubleSolenoid2.set(DoubleSolenoid.Value.kReverse);
-    // }
-
-
-    /**
-     * enable color wheel motor while button 6 is pressed
-     */
-    if(m_stick.getRawButton(kColorWheelButton)) {
-      m_colorWheel.setSpeed(0.2);
-    } else {
-      m_colorWheel.setSpeed(0);
-    }
-
-
-    /**
-     * enable shooter wheels while button 1 (trigger) is pressed
-     */
-    if(m_stick.getRawButton(kShooterButton)) {
-      m_rightShooterWheel.set(1.0);
-      m_leftShooterWheel.set(1.0);
-    } else {
-      m_rightShooterWheel.set(0.0);
-      m_leftShooterWheel.set(0.0);
-    }
-
-    /**
-     * enable or disable intake ramp
-     */
-    if(m_stick.getRawButton(kIntakeButton)) {
-      // enable shooter
-      intakeRampEngaged = true;
-    }
-
-    if(m_stick.getRawButton(8)) {
-      intakeRampEngaged = false;
-    }
-
-    if(intakeRampEngaged) {
-      m_intakeRampLeft.set(intakeSpeed);
-    } else {
-      m_intakeRampLeft.set(0.0);
-    }
+  /**
+   * This function is called periodically during test mode.
+   */
+  @Override
+  public void testPeriodic() {
   }
 }
