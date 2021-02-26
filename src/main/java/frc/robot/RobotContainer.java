@@ -5,7 +5,9 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.DriveCommand;
@@ -37,6 +39,7 @@ public class RobotContainer {
   public static final XboxController m_joystick = new XboxController(Constants.JOYSTICK_NUMBER);
 
   private final SendableChooser<Command> chooser = new SendableChooser<>();
+  public static final PowerDistributionPanel m_pdp = new PowerDistributionPanel(Constants.PDP_CAN_ID);
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -55,6 +58,8 @@ public class RobotContainer {
     // chooser.addOption("Autonomous One", autonomousOne);
     // chooser.addOption("Autonomous Two", autonomousTwo);
     SmartDashboard.putData("Autonomous", chooser);
+    SmartDashboard.putData("PDP", m_pdp);
+    SmartDashboard.putData("DriveTrain", m_driveTrain);
 
     // Configure the button bindings
     configureButtonBindings();

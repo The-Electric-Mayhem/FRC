@@ -15,8 +15,8 @@ public class ShooterSubsystem extends SubsystemBase {
 
   /** Creates a new ShooterSubsystem. */
   public ShooterSubsystem() {
-    shooterLeft = new PWMVictorSPX(Constants.SHOOTER_LEFT_PWM);
-    shooterRight = new PWMVictorSPX(Constants.SHOOTER_RIGHT_PWM);
+    shooterLeft = new PWMVictorSPX(Constants.SHOOTER_LEFT_CAN_ID);
+    shooterRight = new PWMVictorSPX(Constants.SHOOTER_RIGHT_CAN_ID);
 
     shooter = new SpeedControllerGroup(shooterLeft, shooterRight);
   }

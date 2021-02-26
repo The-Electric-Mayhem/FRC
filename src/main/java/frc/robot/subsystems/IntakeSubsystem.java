@@ -14,7 +14,7 @@ public class IntakeSubsystem extends SubsystemBase {
 
   /** Creates a new IntakeSubsystem. */
   public IntakeSubsystem() {
-    intake = new PWMVictorSPX(Constants.INTAKE_PWM);
+    intake = new PWMVictorSPX(Constants.INTAKE_CAN_ID);
   }
 
   @Override

@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.PWMVictorSPX;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -20,24 +21,24 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
     PWMVictorSPX leftFront, rightFront, leftBack, rightBack;
     SpeedControllerGroup leftMotors, rightMotors;
-    DifferentialDrive drive;
+    public static DifferentialDrive drive;
     AnalogInput rangeFinder;
 
     public DriveTrainSubsystem() {
         // left front motor
-        leftFront = new PWMVictorSPX(Constants.LEFT_FRONT_PWM);
+        leftFront = new PWMVictorSPX(Constants.LEFT_FRONT_CAN_ID);
         leftFront.setInverted(Constants.DRIVE_LEFT_FRONT_INVERTED);
 
         // right front motor
-        rightFront = new PWMVictorSPX(Constants.RIGHT_FRONT_PWM);
+        rightFront = new PWMVictorSPX(Constants.RIGHT_FRONT_CAN_ID);
         rightFront.setInverted(Constants.DRIVE_RIGHT_FRONT_INVERTED);
 
         // left back motor
-        leftBack = new PWMVictorSPX(Constants.LEFT_BACK_PWM);
+        leftBack = new PWMVictorSPX(Constants.LEFT_BACK_CAN_ID);
         leftBack.setInverted(Constants.DRIVE_LEFT_BACK_INVERTED);
 
         // right back motor
-        rightBack = new PWMVictorSPX(Constants.RIGHT_BACK_PWM);
+        rightBack = new PWMVictorSPX(Constants.RIGHT_BACK_CAN_ID);
         rightBack.setInverted(Constants.DRIVE_RIGHT_BACK_INVERTED);
 
         // create speed controller groups
@@ -46,6 +47,15 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
         // create a new differential drive with the left and right motor groups
         drive = new DifferentialDrive(leftMotors, rightMotors);
+
+        SmartDashboard.putData("Differential Drive", drive);
+        SmartDashboard.putData("Left Speedgroup", leftMotors);
+        SmartDashboard.putData("Right Speedgroup", rightMotors);
+
+        SmartDashboard.putData("Left Front Motor", leftFront);
+        SmartDashboard.putData("Left Back Motor", leftBack);
+        SmartDashboard.putData("Right Front Motor", rightFront);
+        SmartDashboard.putData("Right Back Motor", rightBack);
     }
 
     @Override

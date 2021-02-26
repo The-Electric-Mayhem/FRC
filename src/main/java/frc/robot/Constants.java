@@ -15,14 +15,16 @@ package frc.robot;
  * wherever the constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    // PWM
-    public static final int LEFT_FRONT_PWM = 0;
-    public static final int RIGHT_FRONT_PWM = 1;
-    public static final int LEFT_BACK_PWM = 2;
-    public static final int RIGHT_BACK_PWM = 3;
-    public static final int SHOOTER_LEFT_PWM = 4;
-    public static final int SHOOTER_RIGHT_PWM = 5;
-    public static final int INTAKE_PWM = 6;
+    // CAN IDs
+    // FIXME: change all the motor can ids
+    public static final int LEFT_FRONT_CAN_ID = 0;
+    public static final int RIGHT_FRONT_CAN_ID = 1;
+    public static final int LEFT_BACK_CAN_ID = 2;
+    public static final int RIGHT_BACK_CAN_ID = 3;
+    public static final int SHOOTER_LEFT_CAN_ID = 4;
+    public static final int SHOOTER_RIGHT_CAN_ID = 5;
+    public static final int INTAKE_CAN_ID = 6;
+    public static final int PDP_CAN_ID = 0;
 
     // Buttons and Axis
     public static final int XBOX_LEFT_Y_AXIS = 1;
