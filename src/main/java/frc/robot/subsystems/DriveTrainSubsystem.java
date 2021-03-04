@@ -4,8 +4,9 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+
 import edu.wpi.first.wpilibj.AnalogInput;
-import edu.wpi.first.wpilibj.PWMVictorSPX;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -19,26 +20,27 @@ public class DriveTrainSubsystem extends SubsystemBase {
      * https://docs.wpilib.org/en/stable/docs/software/actuators/wpi-drive-classes.html
      */
 
-    PWMVictorSPX leftFront, rightFront, leftBack, rightBack;
+    WPI_VictorSPX leftFront, rightFront, leftBack, rightBack;
     SpeedControllerGroup leftMotors, rightMotors;
     public static DifferentialDrive drive;
     AnalogInput rangeFinder;
 
     public DriveTrainSubsystem() {
         // left front motor
-        leftFront = new PWMVictorSPX(Constants.LEFT_FRONT_CAN_ID);
+
+        leftFront = new WPI_VictorSPX(Constants.LEFT_BACK_CAN_ID);
         leftFront.setInverted(Constants.DRIVE_LEFT_FRONT_INVERTED);
 
         // right front motor
-        rightFront = new PWMVictorSPX(Constants.RIGHT_FRONT_CAN_ID);
+        rightFront = new WPI_VictorSPX(Constants.RIGHT_FRONT_CAN_ID);
         rightFront.setInverted(Constants.DRIVE_RIGHT_FRONT_INVERTED);
 
         // left back motor
-        leftBack = new PWMVictorSPX(Constants.LEFT_BACK_CAN_ID);
+        leftBack = new WPI_VictorSPX(Constants.LEFT_BACK_CAN_ID);
         leftBack.setInverted(Constants.DRIVE_LEFT_BACK_INVERTED);
 
         // right back motor
-        rightBack = new PWMVictorSPX(Constants.RIGHT_BACK_CAN_ID);
+        rightBack = new WPI_VictorSPX(Constants.RIGHT_BACK_CAN_ID);
         rightBack.setInverted(Constants.DRIVE_RIGHT_BACK_INVERTED);
 
         // create speed controller groups
