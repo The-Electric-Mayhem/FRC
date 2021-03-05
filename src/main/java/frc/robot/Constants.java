@@ -16,11 +16,10 @@ package frc.robot;
  */
 public final class Constants {
     // CAN IDs
-    // FIXME: change all the motor can ids
     public static final int LEFT_FRONT_CAN_ID = 2;
     public static final int RIGHT_FRONT_CAN_ID = 0;
-    public static final int LEFT_BACK_CAN_ID = 2;
-    public static final int RIGHT_BACK_CAN_ID = 3;
+    public static final int LEFT_BACK_CAN_ID = 3;
+    public static final int RIGHT_BACK_CAN_ID = 1;
     public static final int SHOOTER_LEFT_CAN_ID = 4;
     public static final int SHOOTER_RIGHT_CAN_ID = 5;
     public static final int INTAKE_CAN_ID = 6;
@@ -32,7 +31,7 @@ public final class Constants {
     public static final int XBOX_INTAKE_AXIS = 3;
 
     // Speeds
-    public static final double DRIVE_TRAIN_SPEED = 0.7;
+    public static final double DRIVE_TRAIN_SPEED = 1;
     public static final double AUTONOMOUS_SPEED = 0.4;
     public static final double SHOOTER_SPEED = 1.0;
     public static final double INTAKE_SPEED = 1.0;

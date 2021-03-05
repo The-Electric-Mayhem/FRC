@@ -5,6 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -33,8 +34,8 @@ public class RobotContainer {
   private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
 
   private final DriveCommand m_driveCommand = new DriveCommand(m_driveTrain);
-  private final ShootCommand m_shootCommand = new ShootCommand(m_shooterSubsystem);
-  private final IntakeCommand m_intakeCommand = new IntakeCommand(m_intakeSubsystem);
+  // private final ShootCommand m_shootCommand = new ShootCommand(m_shooterSubsystem);
+  // private final IntakeCommand m_intakeCommand = new IntakeCommand(m_intakeSubsystem);
 
   public static final XboxController m_joystick = new XboxController(Constants.JOYSTICK_NUMBER);
 
@@ -49,11 +50,11 @@ public class RobotContainer {
     m_driveCommand.addRequirements(m_driveTrain);
     m_driveTrain.setDefaultCommand(m_driveCommand);
 
-    m_shootCommand.addRequirements(m_shooterSubsystem);
-    m_shooterSubsystem.setDefaultCommand(m_shootCommand);
+    // m_shootCommand.addRequirements(m_shooterSubsystem);
+    // m_shooterSubsystem.setDefaultCommand(m_shootCommand);
 
-    m_intakeCommand.addRequirements(m_intakeSubsystem);
-    m_intakeSubsystem.setDefaultCommand(m_intakeCommand);
+    // m_intakeCommand.addRequirements(m_intakeSubsystem);
+    // m_intakeSubsystem.setDefaultCommand(m_intakeCommand);
 
     // chooser
     // chooser.addOption("Autonomous One", autonomousOne);
@@ -73,8 +74,8 @@ public class RobotContainer {
    * passing it to a {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    JoystickButton m_shootButton = new JoystickButton(m_joystick, XboxController.Button.kBumperRight.value);
-    m_shootButton.whileHeld(new ShootCommand(m_shooterSubsystem));
+    // JoystickButton m_shootButton = new JoystickButton(m_joystick, XboxController.Button.kBumperRight.value);
+    // m_shootButton.whileHeld(new ShootCommand(m_shooterSubsystem));
   }
 
   /**
