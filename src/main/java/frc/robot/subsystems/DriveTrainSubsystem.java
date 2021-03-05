@@ -70,8 +70,6 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
     public void driveWithJoysticks(XboxController controller, double speed) {
         drive.arcadeDrive(speed * controller.getRawAxis(0), -speed * controller.getRawAxis(1));
-        System.out.println(controller.getRawAxis(0));
-        System.out.println(controller.getRawAxis(1));
     }
 
     public void driveForward(double speed) {
