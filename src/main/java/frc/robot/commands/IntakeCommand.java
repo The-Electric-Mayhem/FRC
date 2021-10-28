@@ -27,7 +27,7 @@ public class IntakeCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //intakeSubsystem.intake(RobotContainer.m_controller, Constants.INTAKE_SPEED);
+    intakeSubsystem.intake(RobotContainer.m_joystick, Constants.INTAKE_SPEED);
   }
 
   // Called once the command ends or is interrupted.

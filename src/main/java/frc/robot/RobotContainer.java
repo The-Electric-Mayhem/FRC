@@ -33,15 +33,11 @@ public class RobotContainer {
   private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
   private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
 
-  public static int m_driveType =0;
-
   private final DriveCommand m_driveCommand = new DriveCommand(m_driveTrain);
   // private final ShootCommand m_shootCommand = new ShootCommand(m_shooterSubsystem);
   // private final IntakeCommand m_intakeCommand = new IntakeCommand(m_intakeSubsystem);
 
-  //public static final XboxController m_controller = new XboxController(Constants.JOYSTICK_NUMBER);
-  public static final Joystick m_joystick1 = new Joystick(0);
-  public static final Joystick m_joystick2 = new Joystick(1);
+  public static final XboxController m_joystick = new XboxController(Constants.JOYSTICK_NUMBER);
 
   private final SendableChooser<Command> chooser = new SendableChooser<>();
   // public static final PowerDistributionPanel m_pdp = new

@@ -72,10 +72,6 @@ public class DriveTrainSubsystem extends SubsystemBase {
         drive.arcadeDrive(speed * controller.getRawAxis(0), -speed * controller.getRawAxis(1));
     }
 
-    public void driveWithJoysticksTank(Joystick leftStick, Joystick rightStick) {
-        drive.tankDrive(-leftStick.getY(), -rightStick.getY());
-    }
-
     public void driveForward(double speed) {
         drive.tankDrive(speed, speed);
     }
